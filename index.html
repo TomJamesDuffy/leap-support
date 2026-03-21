@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leap - Relationship Clarity</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #FAFAF8;
+            color: #1A1A1A;
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+        .hero {
+            background: linear-gradient(135deg, #FFE88A 0%, #F5C518 100%);
+            padding: 80px 24px 60px;
+            text-align: center;
+        }
+        .logo {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 64px;
+            height: 64px;
+            background: #3B3B3B;
+            border-radius: 14px;
+            margin-bottom: 24px;
+            position: relative;
+        }
+        .logo-l {
+            position: absolute;
+            left: 20px;
+            top: 11px;
+        }
+        .hero h1 {
+            font-size: 2.4rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+            letter-spacing: -0.02em;
+        }
+        .hero p {
+            font-size: 1.15rem;
+            color: #3B3B3B;
+            max-width: 480px;
+            margin: 0 auto;
+        }
+        .nav {
+            display: flex;
+            justify-content: center;
+            gap: 32px;
+            padding: 16px 24px;
+            border-bottom: 1px solid #E8E5DF;
+            background: #FFFFFF;
+        }
+        .nav a {
+            text-decoration: none;
+            color: #6B6B6B;
+            font-size: 0.95rem;
+            font-weight: 500;
+        }
+        .nav a.active, .nav a:hover {
+            color: #1A1A1A;
+        }
+        .container {
+            max-width: 640px;
+            margin: 0 auto;
+            padding: 48px 24px 80px;
+        }
+        .section {
+            margin-bottom: 48px;
+        }
+        .section h2 {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 16px;
+            letter-spacing: -0.01em;
+        }
+        .section p {
+            color: #6B6B6B;
+            margin-bottom: 16px;
+        }
+        .features {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .features li {
+            background: #FFFFFF;
+            border: 1px solid #E8E5DF;
+            border-radius: 12px;
+            padding: 20px 24px;
+        }
+        .features li strong {
+            display: block;
+            margin-bottom: 4px;
+        }
+        .features li span {
+            color: #6B6B6B;
+            font-size: 0.95rem;
+        }
+        .research {
+            background: #FFF8E1;
+            border-radius: 12px;
+            padding: 24px;
+            color: #6B6B6B;
+            font-size: 0.95rem;
+        }
+        .research strong {
+            color: #1A1A1A;
+        }
+        .footer {
+            text-align: center;
+            padding: 32px 24px;
+            border-top: 1px solid #E8E5DF;
+            color: #9E9E9E;
+            font-size: 0.85rem;
+        }
+        .footer a { color: #6B6B6B; }
+    </style>
+</head>
+<body>
+    <div class="hero">
+        <div class="logo">
+            <svg class="logo-l" width="24" height="34" viewBox="0 0 24 34" fill="none">
+                <rect x="0" y="0" width="5" height="28" rx="2.5" fill="#FFDB5B"/>
+                <rect x="7" y="26" width="17" height="5" rx="2.5" fill="#FFDB5B"/>
+            </svg>
+        </div>
+        <h1>Leap</h1>
+        <p>Track patterns, learn from research, and find clarity on your relationship.</p>
+    </div>
+
+    <nav class="nav">
+        <a href="index.html" class="active">About</a>
+        <a href="support.html">Support</a>
+    </nav>
+
+    <div class="container">
+        <div class="section">
+            <h2>What is Leap?</h2>
+            <p>Leap is for people whose relationship needs a change but aren't sure what kind. Whether you're working to improve things or honestly not sure if you're in the right place, Leap gives you research-backed tools to see clearly and move forward.</p>
+            <p>The app adapts to your situation. If you're trying to strengthen your relationship, you'll see content focused on connection and repair. If you're evaluating whether to stay, you'll see content focused on honest assessment and decision clarity.</p>
+        </div>
+
+        <div class="section">
+            <h2>Features</h2>
+            <ul class="features">
+                <li>
+                    <strong>Daily Ledger</strong>
+                    <span>Journal entries, daily check-ins, behavioural counters, and commitments to track your relationship over time.</span>
+                </li>
+                <li>
+                    <strong>Research-backed lessons</strong>
+                    <span>35+ lessons based on research by Gottman, Rusbult, and Joel, with exercises to put what you learn into practice.</span>
+                </li>
+                <li>
+                    <strong>Adaptive content</strong>
+                    <span>The app adjusts to whether you're improving your relationship or deciding what comes next.</span>
+                </li>
+                <li>
+                    <strong>Partner insights</strong>
+                    <span>Personality profiles and AI-powered conversation analysis from WhatsApp chat exports.</span>
+                </li>
+                <li>
+                    <strong>Community</strong>
+                    <span>Anonymous discussion with people going through the same thing, tied to the lessons you've completed.</span>
+                </li>
+                <li>
+                    <strong>Trend visualisations</strong>
+                    <span>See how your relationship is changing over weeks and months with check-in trends, counter tracking, and weekly activity.</span>
+                </li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>The research</h2>
+            <div class="research">
+                <p>Every lesson in Leap cites its source. The content draws on <strong>John Gottman's</strong> 40 years of couple studies, <strong>Caryl Rusbult's</strong> Investment Model of commitment, and <strong>Samantha Joel's</strong> machine learning analysis of 11,000+ couples.</p>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Privacy</h2>
+            <p>Your data is yours. Journal entries, check-ins, and partner profiles are private to your account. Imported conversations are processed for insights and never stored. Community responses use first names only.</p>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>Leap &copy; 2026. <a href="mailto:seggsone@gmail.com">Contact</a></p>
+    </div>
+</body>
+</html>
