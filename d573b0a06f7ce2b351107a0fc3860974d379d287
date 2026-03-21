@@ -1,0 +1,25 @@
+support.html
+  2f7924cede58e515 1-191
+index.html
+  2f7924cede58e515 1-195
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.1.15",
+  "base_commit_sha": "d573b0a06f7ce2b351107a0fc3860974d379d287",
+  "prompts": {
+    "2f7924cede58e515": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "ebbd8444-1b2d-4925-b218-25f5ad6c7f62",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "Thomas Duffy <tomjamesduffy@gmail.com>",
+      "messages": [],
+      "total_additions": 421,
+      "total_deletions": 35,
+      "accepted_lines": 386,
+      "overriden_lines": 0
+    }
+  }
+}
