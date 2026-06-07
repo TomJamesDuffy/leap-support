@@ -156,6 +156,20 @@
         .app-store:hover { transform: translateY(-2px); box-shadow: 0 16px 38px rgba(0,0,0,0.24); }
         .app-store small { display: block; font-size: 0.7rem; font-weight: 500; opacity: 0.75; line-height: 1.1; }
         .app-store .as-label { font-size: 1.15rem; font-weight: 700; line-height: 1.1; }
+        .privacy-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 22px;
+            padding: 7px 16px;
+            border: 1px solid var(--line);
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.55);
+            color: var(--ink-soft);
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+        .privacy-badge svg { flex-shrink: 0; }
         .scroll-hint {
             position: absolute;
             bottom: 32px; left: 50%;
@@ -334,6 +348,13 @@
                 <span class="as-label">App Store</span>
             </span>
         </a>
+        <div class="privacy-badge">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#F5C518" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                <polyline points="9 12 11 14 15 10"/>
+            </svg>
+            Private by default. Your data is never sold.
+        </div>
         <div class="scroll-hint">Scroll<span>&#8595;</span></div>
     </header>
 
