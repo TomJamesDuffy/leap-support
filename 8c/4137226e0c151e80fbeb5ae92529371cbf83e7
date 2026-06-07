@@ -1,0 +1,19 @@
+index.html
+  s_d55470501297eb::t_b308280f744c37 330
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.3",
+  "base_commit_sha": "8c4137226e0c151e80fbeb5ae92529371cbf83e7",
+  "prompts": {},
+  "sessions": {
+    "s_d55470501297eb": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "d34538c7-cf68-4b8d-a486-664b2cf240fc",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "Thomas Duffy <tomjamesduffy@gmail.com>"
+    }
+  }
+}
