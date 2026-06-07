@@ -1,0 +1,44 @@
+CNAME
+  s_d55470501297eb::t_e05bc7d7f5c359 1
+privacy.html
+  s_d55470501297eb::t_3dafad045be33e 6
+  s_d55470501297eb::t_968df62feb6dc4 144
+  s_d55470501297eb::t_7c0fc53c94a360 189
+  s_d55470501297eb::t_8e9fc142537ee1 184,199
+  s_d55470501297eb::t_6f02f3bd59708e 99
+  s_d55470501297eb::t_80ea586b0b5c9d 167
+  s_d55470501297eb::t_ccf428fbab5613 155
+  s_d55470501297eb::t_55b8513893502b 114
+  s_d55470501297eb::t_e135ddf9dd6577 200
+  s_d55470501297eb::t_57f269c6614997 205
+support.html
+  s_d55470501297eb::t_738a011a64478f 122
+  s_d55470501297eb::t_d163581a4a5df7 6
+  s_d55470501297eb::t_d4aed158cd16fa 155
+  s_d55470501297eb::t_6aee93d72f09e5 163
+  s_d55470501297eb::t_9b710f67cc7f13 166-167
+  s_d55470501297eb::t_9e84f75c0886fe 174
+  s_d55470501297eb::t_76de3981d6ccf8 137
+index.html
+  s_d55470501297eb::t_cbfc8b2897817e 178
+  s_d55470501297eb::t_e3c3b6ad666d0f 6
+  s_d55470501297eb::t_b3597e635949a0 116-117
+  s_d55470501297eb::t_0490d1ce7cf90f 129-130
+  s_d55470501297eb::t_d84d465f94970d 167
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.3",
+  "base_commit_sha": "c823b26703f38bf62ebbe67c087e8e64d403630b",
+  "prompts": {},
+  "sessions": {
+    "s_d55470501297eb": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "d34538c7-cf68-4b8d-a486-664b2cf240fc",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "Thomas Duffy <tomjamesduffy@gmail.com>"
+    }
+  }
+}
