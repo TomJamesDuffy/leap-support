@@ -182,7 +182,6 @@
             color: #FFFFFF;
             padding: 90px 0 70px;
             scroll-snap-align: start;
-            overflow: hidden;
         }
         .showcase-head {
             text-align: center;
@@ -202,44 +201,20 @@
             font-size: clamp(1rem, 2.4vw, 1.2rem);
             color: rgba(255,255,255,0.62);
         }
-        .carousel { position: relative; }
-        .track {
+        .gallery {
             display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
             gap: 24px;
-            overflow-x: auto;
-            scroll-snap-type: x mandatory;
-            padding: 12px 48px;
-            scrollbar-width: none;
+            padding: 0 24px;
         }
-        .track::-webkit-scrollbar { display: none; }
         .shot {
             flex: 0 0 auto;
-            height: min(58vh, 600px);
-            border-radius: 28px;
-            scroll-snap-align: center;
+            height: min(46vh, 440px);
+            border-radius: 24px;
             box-shadow: 0 24px 60px rgba(0,0,0,0.5);
         }
-        .car-btn {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            z-index: 5;
-            width: 48px; height: 48px;
-            border: none;
-            border-radius: 999px;
-            background: rgba(255,255,255,0.92);
-            color: var(--ink);
-            font-size: 1.5rem;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
-            transition: transform 0.15s ease, background 0.15s ease;
-        }
-        .car-btn:hover { transform: translateY(-50%) scale(1.08); }
-        .car-btn.prev { left: 20px; }
-        .car-btn.next { right: 20px; }
 
         /* ---------- Content ---------- */
         .container {
@@ -326,8 +301,7 @@
             .nav-links { gap: 16px; }
             .nav-links a:not(.nav-cta) { display: none; }
             .features { grid-template-columns: 1fr; }
-            .track { padding: 12px 24px; gap: 16px; }
-            .car-btn { display: none; }
+            .gallery { gap: 16px; }
             .container { padding: 72px 22px; }
         }
     </style>
@@ -369,16 +343,12 @@
             <h2 class="serif">Your relationship should feel right. <em>Stop ruminating, get clarity.</em></h2>
             <p>Track patterns, learn from leading relationship research, and see your relationship clearly.</p>
         </div>
-        <div class="carousel">
-            <button class="car-btn prev" aria-label="Previous">&#8249;</button>
-            <div class="track" id="track">
-                <img class="shot" src="assets/screens/s2.jpg" alt="Understand patterns in your relationship">
-                <img class="shot" src="assets/screens/s3.jpg" alt="Capture journal entries to track change">
-                <img class="shot" src="assets/screens/s4.jpg" alt="Get visibility of changes over time">
-                <img class="shot" src="assets/screens/s5.jpg" alt="Learn the signs that matter">
-                <img class="shot" src="assets/screens/s6.jpg" alt="Get insights into your relationship">
-            </div>
-            <button class="car-btn next" aria-label="Next">&#8250;</button>
+        <div class="gallery">
+            <img class="shot" src="assets/screens/s5.jpg" alt="Learn the signs that matter">
+            <img class="shot" src="assets/screens/s2.jpg" alt="Understand patterns in your relationship">
+            <img class="shot" src="assets/screens/s3.jpg" alt="Capture journal entries to track change">
+            <img class="shot" src="assets/screens/s4.jpg" alt="Get visibility of changes over time">
+            <img class="shot" src="assets/screens/s6.jpg" alt="Get insights into your relationship">
         </div>
     </section>
 
@@ -461,18 +431,6 @@
             nav.classList.toggle('scrolled', window.scrollY > 20);
         });
 
-        // Carousel controls
-        const track = document.getElementById('track');
-        const step = () => {
-            const card = track.querySelector('.shot');
-            return card ? card.getBoundingClientRect().width + 24 : 300;
-        };
-        document.querySelector('.car-btn.next').addEventListener('click', () => {
-            track.scrollBy({ left: step(), behavior: 'smooth' });
-        });
-        document.querySelector('.car-btn.prev').addEventListener('click', () => {
-            track.scrollBy({ left: -step(), behavior: 'smooth' });
-        });
     </script>
 </body>
 </html>
