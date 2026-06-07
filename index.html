@@ -60,7 +60,6 @@
             color: var(--ink);
         }
         .nav-brand img { width: 32px; height: 32px; border-radius: 8px; }
-        .nav-brand span { font-weight: 700; font-size: 1.1rem; letter-spacing: -0.01em; }
         .nav-links {
             display: flex;
             align-items: center;
@@ -156,20 +155,18 @@
         .app-store:hover { transform: translateY(-2px); box-shadow: 0 16px 38px rgba(0,0,0,0.24); }
         .app-store small { display: block; font-size: 0.7rem; font-weight: 500; opacity: 0.75; line-height: 1.1; }
         .app-store .as-label { font-size: 1.15rem; font-weight: 700; line-height: 1.1; }
-        .privacy-badge {
+        .brand-text { display: flex; flex-direction: column; line-height: 1.15; }
+        .brand-name { font-weight: 700; font-size: 1.1rem; letter-spacing: -0.01em; }
+        .brand-privacy {
             display: inline-flex;
             align-items: center;
-            gap: 8px;
-            margin-top: 22px;
-            padding: 7px 16px;
-            border: 1px solid var(--line);
-            border-radius: 999px;
-            background: rgba(255, 255, 255, 0.55);
-            color: var(--ink-soft);
-            font-size: 0.85rem;
+            gap: 5px;
+            margin-top: 1px;
+            font-size: 0.72rem;
             font-weight: 500;
+            color: var(--ink-muted);
         }
-        .privacy-badge svg { flex-shrink: 0; }
+        .brand-privacy svg { flex-shrink: 0; }
         .scroll-hint {
             position: absolute;
             bottom: 32px; left: 50%;
@@ -324,7 +321,16 @@
     <nav class="nav" id="nav">
         <a class="nav-brand" href="index.html">
             <img src="logo.png" alt="Relationsight logo">
-            <span>Relationsight</span>
+            <span class="brand-text">
+                <span class="brand-name">Relationsight</span>
+                <span class="brand-privacy">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#F5C518" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                        <polyline points="9 12 11 14 15 10"/>
+                    </svg>
+                    Private by default
+                </span>
+            </span>
         </a>
         <div class="nav-links">
             <a href="index.html">About</a>
@@ -348,13 +354,6 @@
                 <span class="as-label">App Store</span>
             </span>
         </a>
-        <div class="privacy-badge">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#F5C518" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-                <polyline points="9 12 11 14 15 10"/>
-            </svg>
-            Private by default. Your data is never sold.
-        </div>
         <div class="scroll-hint">Scroll<span>&#8595;</span></div>
     </header>
 
