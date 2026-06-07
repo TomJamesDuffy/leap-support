@@ -1,0 +1,23 @@
+index.html
+  s_d55470501297eb::t_957c2824521210 454
+  s_d55470501297eb::t_84fd37ae462bc0 441
+  s_d55470501297eb::t_4b29d9d3188c83 389-391
+  s_d55470501297eb::t_322fe24b9879ba 303
+  s_d55470501297eb::t_88b7590dfa7815 369
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.3",
+  "base_commit_sha": "f81d8f4878d54161e49e532d078f92568859781b",
+  "prompts": {},
+  "sessions": {
+    "s_d55470501297eb": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "d34538c7-cf68-4b8d-a486-664b2cf240fc",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "Thomas Duffy <tomjamesduffy@gmail.com>"
+    }
+  }
+}
