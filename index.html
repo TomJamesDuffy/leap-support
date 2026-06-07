@@ -3,163 +3,360 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Relationsight - Relationship Clarity</title>
+    <title>Relationsight - Find clarity in your relationship</title>
+    <link rel="icon" href="logo.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500;1,600&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --ink: #1A1A1A;
+            --ink-soft: #5A5A5A;
+            --ink-muted: #8C8C8C;
+            --line: #ECE8DE;
+            --yellow: #FFD23F;
+            --yellow-deep: #F5C518;
+            --dark: #141414;
+            --cream: #FAF8F2;
+        }
         * { margin: 0; padding: 0; box-sizing: border-box; }
+        html {
+            scroll-behavior: smooth;
+            scroll-snap-type: y proximity;
+        }
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: #FAFAF8;
-            color: #1A1A1A;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            color: var(--ink);
+            background: #FFFFFF;
             line-height: 1.6;
             -webkit-font-smoothing: antialiased;
         }
-        .hero {
-            background: #FFFFFF;
-            padding: 80px 24px 60px;
-            text-align: center;
-            border-bottom: 1px solid #E8E5DF;
+        .serif { font-family: 'Playfair Display', Georgia, serif; }
+
+        /* ---------- Nav ---------- */
+        .nav {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 32px;
+            background: rgba(255, 255, 255, 0.72);
+            backdrop-filter: saturate(180%) blur(16px);
+            -webkit-backdrop-filter: saturate(180%) blur(16px);
+            border-bottom: 1px solid transparent;
+            transition: border-color 0.25s ease, box-shadow 0.25s ease;
         }
-        .logo {
-            width: 64px;
-            height: 64px;
-            border-radius: 14px;
-            margin-bottom: 24px;
+        .nav.scrolled {
+            border-bottom-color: var(--line);
+            box-shadow: 0 1px 20px rgba(0,0,0,0.04);
+        }
+        .nav-brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            color: var(--ink);
+        }
+        .nav-brand img { width: 32px; height: 32px; border-radius: 8px; }
+        .nav-brand span { font-weight: 700; font-size: 1.1rem; letter-spacing: -0.01em; }
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 28px;
+        }
+        .nav-links a {
+            text-decoration: none;
+            color: var(--ink-soft);
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: color 0.15s ease;
+        }
+        .nav-links a:hover { color: var(--ink); }
+        .nav-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 9px 16px;
+            background: var(--ink);
+            color: #FFFFFF !important;
+            border-radius: 999px;
+            font-weight: 600 !important;
+            transition: opacity 0.15s ease;
+        }
+        .nav-cta:hover { opacity: 0.85; }
+
+        /* ---------- Hero ---------- */
+        .hero {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 120px 24px 80px;
+            background:
+                radial-gradient(ellipse 70% 50% at 50% 38%, rgba(255, 210, 63, 0.18), transparent 70%),
+                #FFFFFF;
+            scroll-snap-align: start;
+        }
+        .hero-logo {
+            width: 84px; height: 84px;
+            border-radius: 20px;
+            margin-bottom: 28px;
+            box-shadow: 0 18px 40px rgba(245, 197, 24, 0.35);
         }
         .hero h1 {
-            font-size: 2.4rem;
+            font-size: clamp(3rem, 9vw, 5.5rem);
             font-weight: 700;
-            margin-bottom: 12px;
             letter-spacing: -0.02em;
+            line-height: 1;
+            margin-bottom: 18px;
         }
-        .hero p {
-            font-size: 1.15rem;
-            color: #3B3B3B;
-            max-width: 480px;
-            margin: 0 auto;
+        .hero .tagline {
+            font-size: clamp(1.2rem, 3.2vw, 1.7rem);
+            color: var(--ink-soft);
+            font-style: italic;
+            margin-bottom: 38px;
         }
         .app-store {
             display: inline-flex;
             align-items: center;
-            gap: 10px;
-            margin-top: 28px;
-            padding: 12px 22px;
-            background: #1A1A1A;
+            gap: 12px;
+            padding: 15px 28px;
+            background: var(--ink);
             color: #FFFFFF;
             text-decoration: none;
-            border-radius: 12px;
-            font-size: 1rem;
+            border-radius: 14px;
+            font-size: 1.05rem;
             font-weight: 600;
-            transition: opacity 0.15s ease;
+            transition: transform 0.15s ease, box-shadow 0.15s ease;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.18);
         }
-        .app-store:hover {
-            opacity: 0.85;
-        }
-        .app-store svg {
-            flex-shrink: 0;
-        }
-        .nav {
-            display: flex;
-            justify-content: center;
-            gap: 32px;
-            padding: 16px 24px;
-            border-bottom: 1px solid #E8E5DF;
-            background: #FFFFFF;
-        }
-        .nav a {
-            text-decoration: none;
-            color: #6B6B6B;
-            font-size: 0.95rem;
-            font-weight: 500;
-        }
-        .nav a.active, .nav a:hover {
-            color: #1A1A1A;
-        }
-        .container {
-            max-width: 640px;
-            margin: 0 auto;
-            padding: 48px 24px 80px;
-        }
-        .section {
-            margin-bottom: 48px;
-        }
-        .section h2 {
-            font-size: 1.4rem;
-            font-weight: 700;
-            margin-bottom: 16px;
-            letter-spacing: -0.01em;
-        }
-        .section p {
-            color: #6B6B6B;
-            margin-bottom: 16px;
-        }
-        .features {
-            list-style: none;
+        .app-store:hover { transform: translateY(-2px); box-shadow: 0 16px 38px rgba(0,0,0,0.24); }
+        .app-store small { display: block; font-size: 0.7rem; font-weight: 500; opacity: 0.75; line-height: 1.1; }
+        .app-store .as-label { font-size: 1.15rem; font-weight: 700; line-height: 1.1; }
+        .scroll-hint {
+            position: absolute;
+            bottom: 32px; left: 50%;
+            transform: translateX(-50%);
+            color: var(--ink-muted);
+            font-size: 0.8rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
             display: flex;
             flex-direction: column;
-            gap: 12px;
+            align-items: center;
+            gap: 6px;
+            animation: bob 2s ease-in-out infinite;
+        }
+        @keyframes bob { 0%,100% { transform: translateX(-50%) translateY(0); } 50% { transform: translateX(-50%) translateY(6px); } }
+
+        /* ---------- Showcase ---------- */
+        .showcase {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            background: var(--dark);
+            color: #FFFFFF;
+            padding: 90px 0 70px;
+            scroll-snap-align: start;
+            overflow: hidden;
+        }
+        .showcase-head {
+            text-align: center;
+            padding: 0 24px;
+            max-width: 760px;
+            margin: 0 auto 44px;
+        }
+        .showcase-head h2 {
+            font-size: clamp(2rem, 5.5vw, 3.4rem);
+            font-weight: 600;
+            line-height: 1.08;
+            letter-spacing: -0.01em;
+            margin-bottom: 16px;
+        }
+        .showcase-head h2 em { color: var(--yellow); font-style: italic; }
+        .showcase-head p {
+            font-size: clamp(1rem, 2.4vw, 1.2rem);
+            color: rgba(255,255,255,0.62);
+        }
+        .carousel { position: relative; }
+        .track {
+            display: flex;
+            gap: 24px;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            padding: 12px 48px;
+            scrollbar-width: none;
+        }
+        .track::-webkit-scrollbar { display: none; }
+        .shot {
+            flex: 0 0 auto;
+            height: min(58vh, 600px);
+            border-radius: 28px;
+            scroll-snap-align: center;
+            box-shadow: 0 24px 60px rgba(0,0,0,0.5);
+        }
+        .car-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 5;
+            width: 48px; height: 48px;
+            border: none;
+            border-radius: 999px;
+            background: rgba(255,255,255,0.92);
+            color: var(--ink);
+            font-size: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+            transition: transform 0.15s ease, background 0.15s ease;
+        }
+        .car-btn:hover { transform: translateY(-50%) scale(1.08); }
+        .car-btn.prev { left: 20px; }
+        .car-btn.next { right: 20px; }
+
+        /* ---------- Content ---------- */
+        .container {
+            max-width: 720px;
+            margin: 0 auto;
+            padding: 96px 24px;
+        }
+        .section { margin-bottom: 64px; }
+        .section:last-child { margin-bottom: 0; }
+        .eyebrow {
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            font-size: 0.78rem;
+            font-weight: 600;
+            color: var(--yellow-deep);
+            margin-bottom: 12px;
+        }
+        .section h2 {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: clamp(1.8rem, 4vw, 2.4rem);
+            font-weight: 600;
+            margin-bottom: 18px;
+            letter-spacing: -0.01em;
+        }
+        .section p { color: var(--ink-soft); margin-bottom: 16px; font-size: 1.05rem; }
+        .features {
+            list-style: none;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+            margin-top: 8px;
         }
         .features li {
-            background: #FFFFFF;
-            border: 1px solid #E8E5DF;
-            border-radius: 12px;
-            padding: 20px 24px;
+            background: var(--cream);
+            border: 1px solid var(--line);
+            border-radius: 16px;
+            padding: 22px 24px;
         }
-        .features li strong {
-            display: block;
-            margin-bottom: 4px;
-        }
-        .features li span {
-            color: #6B6B6B;
-            font-size: 0.95rem;
-        }
+        .features li strong { display: block; margin-bottom: 6px; font-size: 1.05rem; }
+        .features li span { color: var(--ink-soft); font-size: 0.95rem; }
         .research {
-            background: #FFF8E1;
-            border-radius: 12px;
-            padding: 24px;
-            color: #6B6B6B;
-            font-size: 0.95rem;
+            background: linear-gradient(135deg, #FFF6D8, #FFEFB0);
+            border-radius: 20px;
+            padding: 32px;
+            color: var(--ink-soft);
+            font-size: 1.02rem;
         }
-        .research strong {
-            color: #1A1A1A;
-        }
+        .research strong { color: var(--ink); }
+
+        /* ---------- Footer ---------- */
         .footer {
             text-align: center;
-            padding: 32px 24px;
-            border-top: 1px solid #E8E5DF;
-            color: #9E9E9E;
-            font-size: 0.85rem;
+            padding: 48px 24px;
+            border-top: 1px solid var(--line);
+            color: var(--ink-muted);
+            font-size: 0.9rem;
+            background: var(--cream);
         }
-        .footer a { color: #6B6B6B; }
+        .footer a { color: var(--ink-soft); }
+
+        @media (max-width: 640px) {
+            .nav { padding: 12px 18px; }
+            .nav-links { gap: 16px; }
+            .nav-links a:not(.nav-cta) { display: none; }
+            .features { grid-template-columns: 1fr; }
+            .track { padding: 12px 24px; gap: 16px; }
+            .car-btn { display: none; }
+            .container { padding: 72px 22px; }
+        }
     </style>
 </head>
 <body>
-    <div class="hero">
-        <img class="logo" src="logo.png" alt="Relationsight">
-        <h1>Relationsight</h1>
-        <p>Track patterns, learn from research, and find clarity on your relationship.</p>
-        <a class="app-store" href="https://apps.apple.com/us/app/relationsight/id6760618204">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="#FFFFFF" aria-hidden="true">
-                <path d="M17.05 12.04c-.03-2.6 2.12-3.85 2.22-3.91-1.21-1.77-3.1-2.01-3.77-2.04-1.6-.16-3.13.94-3.94.94-.81 0-2.07-.92-3.4-.89-1.75.03-3.36 1.02-4.26 2.58-1.82 3.15-.47 7.8 1.3 10.36.86 1.25 1.89 2.66 3.24 2.61 1.3-.05 1.79-.84 3.36-.84 1.57 0 2.01.84 3.39.81 1.4-.02 2.29-1.28 3.15-2.54.99-1.46 1.4-2.87 1.42-2.94-.03-.01-2.72-1.04-2.75-4.13zM14.6 4.42c.72-.87 1.2-2.08 1.07-3.29-1.03.04-2.28.69-3.02 1.56-.66.77-1.24 2-1.09 3.18 1.15.09 2.32-.59 3.04-1.45z"/>
-            </svg>
-            Download on the App Store
+    <nav class="nav" id="nav">
+        <a class="nav-brand" href="index.html">
+            <img src="logo.png" alt="Relationsight logo">
+            <span>Relationsight</span>
         </a>
-    </div>
-
-    <nav class="nav">
-        <a href="index.html" class="active">About</a>
-        <a href="support.html">Support</a>
-        <a href="privacy.html">Privacy</a>
+        <div class="nav-links">
+            <a href="index.html">About</a>
+            <a href="support.html">Support</a>
+            <a href="privacy.html">Privacy</a>
+            <a class="nav-cta" href="https://apps.apple.com/app/relationsight/id6760618204">Download</a>
+        </div>
     </nav>
 
+    <!-- Section 1: Hero -->
+    <header class="hero">
+        <img class="hero-logo" src="logo.png" alt="Relationsight">
+        <h1 class="serif">Relationsight</h1>
+        <p class="tagline">Find clarity in your relationship.</p>
+        <a class="app-store" href="https://apps.apple.com/app/relationsight/id6760618204">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="#FFFFFF" aria-hidden="true">
+                <path d="M17.05 12.04c-.03-2.6 2.12-3.85 2.22-3.91-1.21-1.77-3.1-2.01-3.77-2.04-1.6-.16-3.13.94-3.94.94-.81 0-2.07-.92-3.4-.89-1.75.03-3.36 1.02-4.26 2.58-1.82 3.15-.47 7.8 1.3 10.36.86 1.25 1.89 2.66 3.24 2.61 1.3-.05 1.79-.84 3.36-.84 1.57 0 2.01.84 3.39.81 1.4-.02 2.29-1.28 3.15-2.54.99-1.46 1.4-2.87 1.42-2.94-.03-.01-2.72-1.04-2.75-4.13zM14.6 4.42c.72-.87 1.2-2.08 1.07-3.29-1.03.04-2.28.69-3.02 1.56-.66.77-1.24 2-1.09 3.18 1.15.09 2.32-.59 3.04-1.45z"/>
+            </svg>
+            <span>
+                <small>Download on the</small>
+                <span class="as-label">App Store</span>
+            </span>
+        </a>
+        <div class="scroll-hint">Scroll<span>&#8595;</span></div>
+    </header>
+
+    <!-- Section 2: App showcase carousel -->
+    <section class="showcase">
+        <div class="showcase-head">
+            <h2 class="serif">Stop ruminating. <em>Start finding answers.</em></h2>
+            <p>Track patterns, learn from leading relationship research, and see your relationship clearly. Right from your pocket.</p>
+        </div>
+        <div class="carousel">
+            <button class="car-btn prev" aria-label="Previous">&#8249;</button>
+            <div class="track" id="track">
+                <img class="shot" src="assets/screens/s1.jpg" alt="When your relationship needs a change">
+                <img class="shot" src="assets/screens/s2.jpg" alt="Understand patterns in your relationship">
+                <img class="shot" src="assets/screens/s3.jpg" alt="Capture journal entries to track change">
+                <img class="shot" src="assets/screens/s4.jpg" alt="Get visibility of changes over time">
+                <img class="shot" src="assets/screens/s5.jpg" alt="Learn the signs that matter">
+                <img class="shot" src="assets/screens/s6.jpg" alt="Get insights into your relationship">
+                <img class="shot" src="assets/screens/s7.jpg" alt="Find community in shared experiences">
+            </div>
+            <button class="car-btn next" aria-label="Next">&#8250;</button>
+        </div>
+    </section>
+
+    <!-- Content -->
     <div class="container">
         <div class="section">
-            <h2>What is Relationsight?</h2>
+            <div class="eyebrow">What is Relationsight?</div>
+            <h2>Clarity for when something needs to change.</h2>
             <p>Relationsight is for people whose relationship needs a change but aren't sure what kind. Whether you're working to improve things or honestly not sure if you're in the right place, Relationsight gives you research-backed tools to find clarity and move forward.</p>
             <p>The app adapts to your situation. If you're trying to strengthen your relationship, you'll see content focused on connection and repair. If you're evaluating whether to stay, you'll see content focused on honest assessment and decision clarity.</p>
         </div>
 
         <div class="section">
-            <h2>Features</h2>
+            <div class="eyebrow">Features</div>
+            <h2>Everything you need to see clearly.</h2>
             <ul class="features">
                 <li>
                     <strong>Daily Ledger</strong>
@@ -183,26 +380,48 @@
                 </li>
                 <li>
                     <strong>Trend visualisations</strong>
-                    <span>See how your relationship is changing over weeks and months with check-in trends, counter tracking, and weekly activity.</span>
+                    <span>See how your relationship is changing over weeks and months with check-in trends and weekly activity.</span>
                 </li>
             </ul>
         </div>
 
         <div class="section">
-            <h2>The research</h2>
+            <div class="eyebrow">The research</div>
             <div class="research">
-                <p>Every lesson in Relationsight cites its source. The content draws on <strong>John Gottman's</strong> 40 years of couple studies, <strong>Caryl Rusbult's</strong> Investment Model of commitment, and <strong>Samantha Joel's</strong> machine learning analysis of 11,000+ couples.</p>
+                <p style="margin-bottom:0;">Every lesson in Relationsight cites its source. The content draws on <strong>John Gottman's</strong> 40 years of couple studies, <strong>Caryl Rusbult's</strong> Investment Model of commitment, and <strong>Samantha Joel's</strong> machine learning analysis of 11,000+ couples.</p>
             </div>
         </div>
 
         <div class="section">
-            <h2>Privacy</h2>
-            <p>Your data is yours. Journal entries, check-ins, and partner profiles are private to your account. Imported conversations are processed for insights and never stored. Community responses use first names only.</p>
+            <div class="eyebrow">Privacy</div>
+            <h2>Your data is yours.</h2>
+            <p>Journal entries, check-ins, and partner profiles are private to your account. Imported conversations are processed for insights and never stored. Community responses use first names only. Read the full <a href="privacy.html" style="color:var(--yellow-deep);font-weight:600;">privacy policy</a>.</p>
         </div>
     </div>
 
     <div class="footer">
-        <p>Relationsight &copy; 2026. <a href="mailto:relationsight@gmail.com">Contact</a></p>
+        <p>Relationsight &copy; 2026. <a href="mailto:relationsight@gmail.com">Contact</a> &middot; <a href="support.html">Support</a> &middot; <a href="privacy.html">Privacy</a></p>
     </div>
+
+    <script>
+        // Nav shadow on scroll
+        const nav = document.getElementById('nav');
+        window.addEventListener('scroll', () => {
+            nav.classList.toggle('scrolled', window.scrollY > 20);
+        });
+
+        // Carousel controls
+        const track = document.getElementById('track');
+        const step = () => {
+            const card = track.querySelector('.shot');
+            return card ? card.getBoundingClientRect().width + 24 : 300;
+        };
+        document.querySelector('.car-btn.next').addEventListener('click', () => {
+            track.scrollBy({ left: step(), behavior: 'smooth' });
+        });
+        document.querySelector('.car-btn.prev').addEventListener('click', () => {
+            track.scrollBy({ left: -step(), behavior: 'smooth' });
+        });
+    </script>
 </body>
 </html>
