@@ -1,0 +1,26 @@
+index.html
+  s_79a575fcea00ae::t_7b1888eeb6234b 533
+  s_79a575fcea00ae::t_3d1e70c2ad0d63 444
+  s_79a575fcea00ae::t_9acbef953478cb 482-484
+  s_79a575fcea00ae::t_6dd502dc19476b 200,210
+  s_79a575fcea00ae::t_ca91adbdff97ba 465-466
+  s_79a575fcea00ae::t_8b45f78bdf2861 687
+  s_79a575fcea00ae::t_79c7121cc24b17 489,492-493,496-497,500-501,504-505
+  s_79a575fcea00ae::t_01ebbdc44b90ca 442
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.6",
+  "base_commit_sha": "2f670884ba8421c6e495fad9bd7ba294cb6357b9",
+  "prompts": {},
+  "sessions": {
+    "s_79a575fcea00ae": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "ca46bb39-e5eb-4b17-a8f7-51aa1129481d",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "Thomas Duffy <tomjamesduffy@gmail.com>"
+    }
+  }
+}
