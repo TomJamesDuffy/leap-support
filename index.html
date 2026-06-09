@@ -172,6 +172,67 @@
         }
         @keyframes bob { 0%,100% { transform: translateX(-50%) translateY(0); } 50% { transform: translateX(-50%) translateY(6px); } }
 
+        /* ---------- Hero: two-column + ambient resonance text ---------- */
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            overflow: hidden;
+            z-index: 0;
+            pointer-events: none;
+        }
+        .float-line {
+            position: absolute;
+            transform: translate(-50%, -50%);
+            color: #9a9a9a;
+            font-family: 'Playfair Display', Georgia, serif;
+            font-style: italic;
+            font-size: 1.05rem;
+            line-height: 1.4;
+            text-align: center;
+            max-width: min(340px, 64vw);
+            opacity: 0;
+            transition: opacity 2.4s ease;
+            will-change: opacity;
+        }
+        .hero-inner {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: clamp(36px, 6vw, 84px);
+            width: 100%;
+            max-width: 1080px;
+        }
+        .hero-copy {
+            text-align: left;
+            max-width: 460px;
+        }
+        .hero-copy .hero-logo { margin-bottom: 22px; }
+        .hero-copy h1 {
+            font-size: clamp(2.6rem, 6vw, 4.4rem);
+            margin-bottom: 14px;
+        }
+        .hero-copy .tagline { margin-bottom: 14px; }
+        .hero-copy .lead { margin: 0 0 30px; max-width: none; }
+        .hero-device { flex: 0 0 auto; }
+        .hero-device img {
+            height: min(72vh, 600px);
+            width: auto;
+            display: block;
+            border-radius: 30px;
+            box-shadow: 0 34px 80px rgba(0,0,0,0.22);
+        }
+        @media (max-width: 880px) {
+            .hero-inner { flex-direction: column; gap: 40px; }
+            .hero-copy { text-align: center; max-width: min(520px, 100%); }
+            .hero-copy .hero-logo { margin-left: auto; margin-right: auto; }
+            .hero-copy .tagline,
+            .hero-copy .lead { margin-left: auto; margin-right: auto; }
+            .hero-copy .lead { max-width: min(460px, 100%); }
+            .hero-device img { height: min(56vh, 480px); }
+        }
+
         /* ---------- Showcase ---------- */
         .showcase {
             min-height: 100vh;
@@ -296,13 +357,59 @@
         }
         .footer a { color: var(--ink-soft); }
 
+        /* ---------- Gallery carousel dots (mobile only) ---------- */
+        .gallery-dots { display: none; }
+
         @media (max-width: 640px) {
             .nav { padding: 12px 18px; }
             .nav-links { gap: 16px; }
             .nav-links a:not(.nav-cta) { display: none; }
             .features { grid-template-columns: 1fr; }
-            .gallery { gap: 16px; }
             .container { padding: 72px 22px; }
+
+            /* Turn the gallery into a swipeable carousel */
+            .gallery {
+                flex-wrap: nowrap;
+                justify-content: flex-start;
+                gap: 16px;
+                overflow-x: auto;
+                scroll-snap-type: x mandatory;
+                -webkit-overflow-scrolling: touch;
+                scroll-padding: 0 24px;
+                scrollbar-width: none;
+            }
+            .gallery::-webkit-scrollbar { display: none; }
+            .gallery::before,
+            .gallery::after {
+                content: '';
+                flex: 0 0 calc((100vw - min(80vw, 360px)) / 2 - 24px);
+            }
+            .shot {
+                height: auto;
+                width: min(80vw, 360px);
+                scroll-snap-align: center;
+                box-shadow: 0 18px 44px rgba(0,0,0,0.5);
+            }
+            .gallery-dots {
+                display: flex;
+                justify-content: center;
+                gap: 9px;
+                margin-top: 30px;
+                padding: 0 24px;
+            }
+            .gallery-dots button {
+                width: 7px; height: 7px;
+                padding: 0;
+                border: none;
+                border-radius: 50%;
+                background: rgba(255,255,255,0.3);
+                cursor: pointer;
+                transition: background 0.25s ease, transform 0.25s ease;
+            }
+            .gallery-dots button.active {
+                background: var(--yellow);
+                transform: scale(1.3);
+            }
         }
     </style>
 </head>
@@ -322,18 +429,27 @@
 
     <!-- Section 1: Hero -->
     <header class="hero">
-        <img class="hero-logo" src="logo.png" alt="Relationsight">
-        <h1 class="serif">Relationsight</h1>
-        <p class="tagline">Find clarity in your relationship.</p>
-        <a class="app-store" href="https://apps.apple.com/app/relationsight/id6760618204">
-            <svg width="26" height="26" viewBox="0 0 24 24" fill="#FFFFFF" aria-hidden="true">
-                <path d="M17.05 12.04c-.03-2.6 2.12-3.85 2.22-3.91-1.21-1.77-3.1-2.01-3.77-2.04-1.6-.16-3.13.94-3.94.94-.81 0-2.07-.92-3.4-.89-1.75.03-3.36 1.02-4.26 2.58-1.82 3.15-.47 7.8 1.3 10.36.86 1.25 1.89 2.66 3.24 2.61 1.3-.05 1.79-.84 3.36-.84 1.57 0 2.01.84 3.39.81 1.4-.02 2.29-1.28 3.15-2.54.99-1.46 1.4-2.87 1.42-2.94-.03-.01-2.72-1.04-2.75-4.13zM14.6 4.42c.72-.87 1.2-2.08 1.07-3.29-1.03.04-2.28.69-3.02 1.56-.66.77-1.24 2-1.09 3.18 1.15.09 2.32-.59 3.04-1.45z"/>
-            </svg>
-            <span>
-                <small>Download on the</small>
-                <span class="as-label">App Store</span>
-            </span>
-        </a>
+        <div class="hero-bg" id="heroBg" aria-hidden="true"></div>
+        <div class="hero-inner">
+            <div class="hero-copy">
+                <img class="hero-logo" src="logo.png" alt="Relationsight">
+                <h1 class="serif">Relationsight</h1>
+                <p class="tagline">Find clarity in your relationship.</p>
+                <p class="lead">The app for when you're not sure where things stand. Track what's really happening, learn from leading relationship research, and find the clarity to move forward.</p>
+                <a class="app-store" href="https://apps.apple.com/app/relationsight/id6760618204">
+                    <svg width="26" height="26" viewBox="0 0 24 24" fill="#FFFFFF" aria-hidden="true">
+                        <path d="M17.05 12.04c-.03-2.6 2.12-3.85 2.22-3.91-1.21-1.77-3.1-2.01-3.77-2.04-1.6-.16-3.13.94-3.94.94-.81 0-2.07-.92-3.4-.89-1.75.03-3.36 1.02-4.26 2.58-1.82 3.15-.47 7.8 1.3 10.36.86 1.25 1.89 2.66 3.24 2.61 1.3-.05 1.79-.84 3.36-.84 1.57 0 2.01.84 3.39.81 1.4-.02 2.29-1.28 3.15-2.54.99-1.46 1.4-2.87 1.42-2.94-.03-.01-2.72-1.04-2.75-4.13zM14.6 4.42c.72-.87 1.2-2.08 1.07-3.29-1.03.04-2.28.69-3.02 1.56-.66.77-1.24 2-1.09 3.18 1.15.09 2.32-.59 3.04-1.45z"/>
+                    </svg>
+                    <span>
+                        <small>Download on the</small>
+                        <span class="as-label">App Store</span>
+                    </span>
+                </a>
+            </div>
+            <div class="hero-device">
+                <img src="assets/screens/s2.jpg" alt="The Relationsight app showing patterns in your relationship">
+            </div>
+        </div>
         <div class="scroll-hint">Scroll<span>&#8595;</span></div>
     </header>
 
@@ -350,6 +466,7 @@
             <img class="shot" src="assets/screens/s4.jpg" alt="Get visibility of changes over time">
             <img class="shot" src="assets/screens/s6.jpg" alt="Get insights into your relationship">
         </div>
+        <div class="gallery-dots" id="galleryDots" aria-hidden="true"></div>
     </section>
 
     <!-- Content -->
@@ -431,6 +548,208 @@
             nav.classList.toggle('scrolled', window.scrollY > 20);
         });
 
+        // ---------- Ambient resonance text in the hero ----------
+        // Short, first-person lines drawn from recurring themes in relationship
+        // subreddits (r/relationship_advice, r/DeadBedrooms, r/survivinginfidelity,
+        // r/Marriage, r/BreakUps). The aim is quiet recognition, not advice.
+        const RESONANCE = [
+            "I'm tired of wondering if my relationship is right for me.",
+            "Is this just a rough patch, or the way things are now?",
+            "I keep waiting to feel sure, and I never do.",
+            "Everyone says we're great together. Why don't I feel it?",
+            "I don't know if I'm settling or just scared.",
+            "Some days I'm all in, some days I'm already gone.",
+            "I love her, but I don't know if that's enough.",
+            "How do I know if this is worth fighting for?",
+            "I can't tell anymore if I'm happy or just used to this.",
+            "If nothing ever changed, could I live with that?",
+            "We haven't been intimate in three months. Do I want this forever?",
+            "We sleep in the same bed and feel like strangers.",
+            "I miss being wanted by the person next to me.",
+            "When did we stop reaching for each other?",
+            "I initiate, get turned down, and stop trying.",
+            "We're more roommates than partners now.",
+            "He promised we'd get married. Five years later, here we are.",
+            "I keep being told “soon,” and soon never comes.",
+            "I'm done waiting for a future he keeps postponing.",
+            "We talked about kids. Now we barely talk at all.",
+            "Every year I tell myself this is the year things change.",
+            "I gave it one more chance so many times I lost count.",
+            "Every conversation turns into the same fight.",
+            "We don't argue anymore. We just go quiet.",
+            "I rehearse what I want to say, then say nothing.",
+            "I feel unheard even when she's listening.",
+            "We can't talk about the hard things without it blowing up.",
+            "I've stopped bringing things up just to keep the peace.",
+            "We've grown into two people who happen to live together.",
+            "I don't recognise us anymore.",
+            "We want different lives now, and we both know it.",
+            "The spark didn't die loudly. It just faded.",
+            "We used to have so much to say to each other.",
+            "I think we fell out of step somewhere along the way.",
+            "I carry the whole relationship and I'm exhausted.",
+            "I'm the only one trying to fix us.",
+            "I feel invisible in my own relationship.",
+            "I do everything, and somehow it's still not enough.",
+            "I'm tired of being the only one who notices.",
+            "When did I become responsible for both of us?",
+            "I overthink every text, every silence, every mood.",
+            "My mind never stops running the numbers on us.",
+            "I lie awake wondering if I'm making a mistake.",
+            "I replay every moment looking for an answer.",
+            "I keep asking my friends what they would do.",
+            "I've made the pros-and-cons list a hundred times.",
+            "I want to trust them, but something feels off.",
+            "I check his phone and hate that I do.",
+            "Once trust cracks, can it ever really heal?",
+            "I forgave it, but I never quite forgot it.",
+            "I'm always waiting for the other shoe to drop.",
+            "I measure my words so I don't set him off.",
+            "I feel calmer when she's not home.",
+            "I shrink myself to keep things smooth.",
+            "I apologise for things that aren't my fault.",
+            "I've never felt more alone than lying next to him.",
+            "I'm lonely in a relationship I chose.",
+            "I miss being missed.",
+            "I have a partner and still feel single.",
+            "I've put seven years in. How do I walk away from that?",
+            "I'm scared of regretting it either way.",
+            "What if I leave and it was fixable?",
+            "What if I stay and waste my best years?",
+            "Starting over terrifies me more than staying.",
+            "I don't want to be the one who gave up.",
+            "Other couples make it look so easy.",
+            "I scroll past happy couples and feel hollow.",
+            "Is everyone this unsure, or is it just me?",
+            "I keep asking for more and feeling needy for it.",
+            "I shouldn't have to beg to feel chosen.",
+            "I want to be a priority, not an option.",
+            "We're staying together for the kids. Is that enough?",
+            "I don't want my children to think this is what love is.",
+            "We can co-parent. I'm not sure we can be partners.",
+            "Little resentments have quietly become a wall.",
+            "I keep score now, and I hate who that makes me.",
+            "I'm angry at him for things he doesn't even know about.",
+            "I still believe in us. I just don't know how to fix this.",
+            "I want to fall back in love with my own marriage.",
+            "I'd do the work if I knew she would too.",
+            "I just want to feel like a team again.",
+            "I'm not ready to give up, but I'm running low.",
+            "I've lost myself somewhere in this relationship.",
+            "I don't remember who I was before us.",
+            "I gave up so much, and I'm not sure it was worth it.",
+            "My gut has been telling me something for a while now.",
+            "Part of me already knows the answer.",
+            "I keep ignoring the feeling that won't go away.",
+            "He's a good man, and I'm still unhappy. What does that mean?",
+            "Nothing is wrong, exactly, but nothing feels right.",
+            "We're fine on paper and falling apart in private.",
+            "I love who she was more than who she's become.",
+            "I keep hoping he'll go back to how he used to be.",
+            "I planned a whole life around this person.",
+            "I just want to stop questioning everything.",
+            "I want clarity more than I want to be right.",
+            "I need to know if this is fixable or finished.",
+            "I'm exhausted from carrying this decision alone.",
+            "I just want to know I'm not crazy for feeling this way."
+        ];
+
+        (function () {
+            const layer = document.getElementById('heroBg');
+            if (!layer) return;
+            const reduceMotion = window.matchMedia &&
+                window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            const showing = new Set();
+
+            function pick() {
+                let s, tries = 0;
+                do {
+                    s = RESONANCE[Math.floor(Math.random() * RESONANCE.length)];
+                } while (showing.has(s) && ++tries < 12);
+                return s;
+            }
+
+            function place(el) {
+                el.style.left = (14 + Math.random() * 72) + '%';
+                el.style.top = (12 + Math.random() * 76) + '%';
+                el.style.fontSize = (0.9 + Math.random() * 0.85).toFixed(2) + 'rem';
+            }
+
+            // Reduced motion: a few faint, static lines, no animation.
+            if (reduceMotion) {
+                for (let i = 0; i < 3; i++) {
+                    const el = document.createElement('div');
+                    el.className = 'float-line';
+                    const s = pick(); showing.add(s);
+                    el.textContent = '“' + s + '”';
+                    el.style.left = (24 + i * 24) + '%';
+                    el.style.top = (28 + i * 20) + '%';
+                    el.style.opacity = '0.09';
+                    layer.appendChild(el);
+                }
+                return;
+            }
+
+            const slots = window.innerWidth < 720 ? 4 : 7;
+            for (let i = 0; i < slots; i++) {
+                const el = document.createElement('div');
+                el.className = 'float-line';
+                layer.appendChild(el);
+
+                (function cycle(first) {
+                    const start = () => {
+                        const s = pick();
+                        showing.add(s);
+                        el.textContent = '“' + s + '”';
+                        place(el);
+                        const target = (0.07 + Math.random() * 0.07).toFixed(3);
+                        requestAnimationFrame(() => { el.style.opacity = target; });
+                        const hold = 3200 + Math.random() * 2600;
+                        setTimeout(() => { el.style.opacity = '0'; }, hold);
+                        setTimeout(() => { showing.delete(s); cycle(false); },
+                            hold + 2600 + Math.random() * 1600);
+                    };
+                    // Stagger the first appearance of each slot.
+                    setTimeout(start, first ? i * 850 : 0);
+                })(true);
+            }
+        })();
+
+        // ---------- Mobile gallery: swipe carousel dots ----------
+        (function () {
+            const gallery = document.querySelector('.gallery');
+            const dotsWrap = document.getElementById('galleryDots');
+            if (!gallery || !dotsWrap) return;
+            const shots = Array.from(gallery.querySelectorAll('.shot'));
+
+            shots.forEach((shot, i) => {
+                const b = document.createElement('button');
+                b.type = 'button';
+                b.setAttribute('aria-label', 'Show screen ' + (i + 1));
+                b.addEventListener('click', () => {
+                    gallery.scrollTo({
+                        left: shot.offsetLeft - (gallery.clientWidth - shot.offsetWidth) / 2,
+                        behavior: 'smooth'
+                    });
+                });
+                dotsWrap.appendChild(b);
+            });
+
+            const dots = Array.from(dotsWrap.children);
+            function update() {
+                const center = gallery.scrollLeft + gallery.clientWidth / 2;
+                let best = 0, bestDist = Infinity;
+                shots.forEach((s, i) => {
+                    const c = s.offsetLeft + s.offsetWidth / 2;
+                    const d = Math.abs(c - center);
+                    if (d < bestDist) { bestDist = d; best = i; }
+                });
+                dots.forEach((d, i) => d.classList.toggle('active', i === best));
+            }
+            gallery.addEventListener('scroll',
+                () => window.requestAnimationFrame(update), { passive: true });
+            update();
+        })();
     </script>
 </body>
 </html>
