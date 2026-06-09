@@ -172,28 +172,7 @@
         }
         @keyframes bob { 0%,100% { transform: translateX(-50%) translateY(0); } 50% { transform: translateX(-50%) translateY(6px); } }
 
-        /* ---------- Hero: two-column + ambient resonance text ---------- */
-        .hero-bg {
-            position: absolute;
-            inset: 0;
-            overflow: hidden;
-            z-index: 0;
-            pointer-events: none;
-        }
-        .float-line {
-            position: absolute;
-            transform: translate(-50%, -50%);
-            color: #9a9a9a;
-            font-family: 'Playfair Display', Georgia, serif;
-            font-style: italic;
-            font-size: 1.05rem;
-            line-height: 1.4;
-            text-align: center;
-            max-width: min(340px, 64vw);
-            opacity: 0;
-            transition: opacity 2.4s ease;
-            will-change: opacity;
-        }
+        /* ---------- Hero: two-column ---------- */
         .hero-inner {
             position: relative;
             z-index: 2;
@@ -213,7 +192,24 @@
             font-size: clamp(2.6rem, 6vw, 4.4rem);
             margin-bottom: 14px;
         }
-        .hero-copy .tagline { margin-bottom: 14px; }
+        .hero-copy .tagline { margin-bottom: 22px; }
+        .hero-quote {
+            border-left: 3px solid var(--yellow);
+            padding: 2px 0 2px 16px;
+            margin: 0 0 24px;
+            min-height: 2.9em;
+            display: flex;
+            align-items: center;
+        }
+        .hero-quote p {
+            margin: 0;
+            color: var(--ink-soft);
+            font-size: 1.08rem;
+            line-height: 1.45;
+            transition: opacity 0.6s ease;
+        }
+        .hero-quote p::before { content: '\201C'; }
+        .hero-quote p::after { content: '\201D'; }
         .hero-copy .lead { margin: 0 0 30px; max-width: none; }
         .hero-device { flex: 0 0 auto; }
         .hero-device img {
@@ -230,6 +226,15 @@
             .hero-copy .tagline,
             .hero-copy .lead { margin-left: auto; margin-right: auto; }
             .hero-copy .lead { max-width: min(460px, 100%); }
+            .hero-quote {
+                border-left: none;
+                padding: 0;
+                justify-content: center;
+                text-align: center;
+                max-width: min(420px, 100%);
+                margin-left: auto;
+                margin-right: auto;
+            }
             .hero-device img { height: min(56vh, 480px); }
         }
 
@@ -429,12 +434,12 @@
 
     <!-- Section 1: Hero -->
     <header class="hero">
-        <div class="hero-bg" id="heroBg" aria-hidden="true"></div>
         <div class="hero-inner">
             <div class="hero-copy">
                 <img class="hero-logo" src="logo.png" alt="Relationsight">
                 <h1 class="serif">Relationsight</h1>
                 <p class="tagline">Find clarity in your relationship.</p>
+                <blockquote class="hero-quote"><p id="rotThought">I'm tired of wondering if my relationship is right for me.</p></blockquote>
                 <p class="lead">The app for when you're not sure where things stand. Track what's really happening, learn from leading relationship research, and find the clarity to move forward.</p>
                 <a class="app-store" href="https://apps.apple.com/app/relationsight/id6760618204">
                     <svg width="26" height="26" viewBox="0 0 24 24" fill="#FFFFFF" aria-hidden="true">
@@ -447,7 +452,7 @@
                 </a>
             </div>
             <div class="hero-device">
-                <img src="assets/screens/s2.jpg" alt="The Relationsight app showing patterns in your relationship">
+                <img src="assets/screens/s2_hero.jpg" alt="The Relationsight app showing patterns in your relationship">
             </div>
         </div>
         <div class="scroll-hint">Scroll<span>&#8595;</span></div>
@@ -655,64 +660,29 @@
         ];
 
         (function () {
-            const layer = document.getElementById('heroBg');
-            if (!layer) return;
+            const el = document.getElementById('rotThought');
+            if (!el) return;
             const reduceMotion = window.matchMedia &&
                 window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-            const showing = new Set();
 
-            function pick() {
-                let s, tries = 0;
-                do {
-                    s = RESONANCE[Math.floor(Math.random() * RESONANCE.length)];
-                } while (showing.has(s) && ++tries < 12);
-                return s;
+            // Shuffle so the order feels fresh on each visit.
+            const lines = RESONANCE.slice();
+            for (let i = lines.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [lines[i], lines[j]] = [lines[j], lines[i]];
             }
+            el.textContent = lines[0];
+            if (reduceMotion) return;
 
-            function place(el) {
-                el.style.left = (14 + Math.random() * 72) + '%';
-                el.style.top = (12 + Math.random() * 76) + '%';
-                el.style.fontSize = (0.9 + Math.random() * 0.85).toFixed(2) + 'rem';
-            }
-
-            // Reduced motion: a few faint, static lines, no animation.
-            if (reduceMotion) {
-                for (let i = 0; i < 3; i++) {
-                    const el = document.createElement('div');
-                    el.className = 'float-line';
-                    const s = pick(); showing.add(s);
-                    el.textContent = '“' + s + '”';
-                    el.style.left = (24 + i * 24) + '%';
-                    el.style.top = (28 + i * 20) + '%';
-                    el.style.opacity = '0.09';
-                    layer.appendChild(el);
-                }
-                return;
-            }
-
-            const slots = window.innerWidth < 720 ? 4 : 7;
-            for (let i = 0; i < slots; i++) {
-                const el = document.createElement('div');
-                el.className = 'float-line';
-                layer.appendChild(el);
-
-                (function cycle(first) {
-                    const start = () => {
-                        const s = pick();
-                        showing.add(s);
-                        el.textContent = '“' + s + '”';
-                        place(el);
-                        const target = (0.07 + Math.random() * 0.07).toFixed(3);
-                        requestAnimationFrame(() => { el.style.opacity = target; });
-                        const hold = 3200 + Math.random() * 2600;
-                        setTimeout(() => { el.style.opacity = '0'; }, hold);
-                        setTimeout(() => { showing.delete(s); cycle(false); },
-                            hold + 2600 + Math.random() * 1600);
-                    };
-                    // Stagger the first appearance of each slot.
-                    setTimeout(start, first ? i * 850 : 0);
-                })(true);
-            }
+            let i = 0;
+            setInterval(() => {
+                el.style.opacity = '0';
+                setTimeout(() => {
+                    i = (i + 1) % lines.length;
+                    el.textContent = lines[i];
+                    el.style.opacity = '1';
+                }, 600);
+            }, 4200);
         })();
 
         // ---------- Mobile gallery: swipe carousel dots ----------
