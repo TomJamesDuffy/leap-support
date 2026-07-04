@@ -1,0 +1,21 @@
+terms.html
+  s_5f10266c498d0c::t_37228d18bd324a 138
+index.html
+  s_5f10266c498d0c::t_24bdea8da54827 514
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "11b41774f9b60db6d1ca4f1f025f9623a4778176",
+  "prompts": {},
+  "sessions": {
+    "s_5f10266c498d0c": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "eb7a9923-92de-432e-a521-b8ae77fc74ba",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "Thomas Duffy <tomjamesduffy@gmail.com>"
+    }
+  }
+}
